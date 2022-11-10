@@ -1,0 +1,48 @@
+{
+    "menu": [{
+            "url": "/",
+            "name": "Dashboard",
+            "icon": "menu-icon tf-icons bx bx-home-circle",
+
+            "slug": "dashboard-analytics"
+        },
+
+
+
+        {
+            "menuHeader": "Users"
+        },
+        {
+            "name": "Technical users",
+            "icon": "menu-icon tf-icons bx bx-collection",
+            "slug": "users.technical.view",
+
+            "url": "users/technical"
+        },
+
+        {
+            "name": "Simple users",
+            "icon": "menu-icon tf-icons bx bx-table",
+            "slug": "users.simple.view",
+
+            "url": "users/simple"
+        },
+        {
+            "menuHeader": "Account"
+        },
+        {
+            "url": "account/settings",
+            "icon": "menu-icon tf-icons bx bx-support",
+            "name": "Settings",
+            "slug": "account.settings.view",
+            "target": "_blank"
+        },
+        {
+            "url": "/logout",
+            "icon": "menu-icon tf-icons bx bx-file",
+            "name": "Log out",
+            "slug": "documentation"
+
+        }
+    ]
+}

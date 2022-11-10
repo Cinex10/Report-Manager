@@ -1,0 +1,49 @@
+{
+    "menu": [{
+            "url": "/",
+            "name": "Dashboard",
+            "icon": "menu-icon tf-icons bx bx-home-circle",
+
+            "slug": "dashboard-analytics"
+        },
+        {
+            "menuHeader": "Reports"
+        },
+
+        {
+            "name": "Current Reports",
+            "icon": "menu-icon tf-icons bx bx bx-dock-top",
+            "slug": "service.report.current.view",
+
+            "url": "reports/current/service"
+
+        },
+
+        {
+            "name": "Solved Reports",
+            "icon": "menu-icon tf-icons bx bx-lock-open-alt",
+            "slug": "service.report.solved.view",
+
+            "url": "reports/solved/service"
+
+        },
+
+        {
+            "menuHeader": "Account"
+        },
+        {
+            "url": "account/settings",
+            "icon": "menu-icon tf-icons bx bx-support",
+            "name": "Settings",
+            "slug": "account.settings.view",
+            "target": "_blank"
+        },
+        {
+            "url": "/logout",
+            "icon": "menu-icon tf-icons bx bx-file",
+            "name": "Log out",
+            "slug": "documentation"
+
+        }
+    ]
+}

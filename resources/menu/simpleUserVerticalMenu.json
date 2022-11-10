@@ -1,0 +1,45 @@
+{
+    "menu": [{
+            "url": "/",
+            "name": "Home",
+            "icon": "menu-icon tf-icons bx bx-home-circle",
+            "slug": "home"
+        },
+
+        {
+            "menuHeader": "Reports"
+        },
+        {
+            "name": "Create New Report",
+            "icon": "menu-icon tf-icons bx bx bx-dock-top",
+            "slug": "report.create.view",
+            "url": "/reports/create"
+
+        },
+        {
+            "name": "My Reports",
+            "icon": "menu-icon tf-icons bx bx bx-dock-top",
+            "slug": "myreport.view",
+            "url": "/reports/me"
+
+        },
+
+
+        {
+            "menuHeader": "Account"
+        },
+        {
+            "url": "account/settings",
+            "icon": "menu-icon tf-icons bx bx-support",
+            "name": "Settings",
+            "slug": "support",
+            "target": "_blank"
+        },
+        {
+            "url": "logout",
+            "icon": "menu-icon tf-icons bx bx-file",
+            "name": "Log out",
+            "slug": "documentation"
+        }
+    ]
+}
