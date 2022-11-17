@@ -45,4 +45,9 @@ class AccountController extends Controller
         }
         return redirect()->back()->with('error', 'Something went wrong');
     }
+
+    public function viewSettings()
+    {
+        return view('account.account-settings', ['title' => 'Settings']);
+    }
 }

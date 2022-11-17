@@ -1,8 +1,8 @@
-@extends('layouts/contentNavbarLayout') @section('title', 'Account settings - Account') @section('page-script')
+@extends('layouts/contentNavbarLayout') @section('title', $title) @section('page-script')
 <script src="{{asset('assets/js/pages-account-settings-account.js')}}"></script>
 @endsection @section('content')
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Account /</span> Settings
+  <span class="text-muted fw-light">Account /</span> {{$title}}
 </h4>
 @if(session()->has('success'))
 <div class="alert alert-danger alert-dismissible" role="alert">

@@ -1,12 +1,12 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
-@inject('reports', 'App\Models\Declaration')
+@section('title', $title)
+
 
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Reports /</span> Current Reports
+    <span class="text-muted fw-light">Reports /</span> {{$title}}
 </h4>
 
 
@@ -18,7 +18,7 @@
 
 
     <div class="table-responsive text-nowrap">
-        <table class="table table-hover" style="overflow: visible;position: absolute;">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -30,14 +30,14 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach($reports::where('state','!=','solved')->where('state','=','valid')->get() as $report)
+                @foreach($reports as $report)
 
 
                 <tr>
                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$report->titre}}</strong></td>
                     <td>{{$report->lieu}}</td>
                     <td>
-                        {{$report->created_at}}
+                        {{time_elapsed_string($report->created_at)}}
                     </td>
                     <td><span class="badge rounded-pill bg-primary">{{$report->categorie()->pluck('name')[0]}}</span></td>
                     <td><span class="badge rounded-pill bg-primary">{{$report->state}}</span></td>
@@ -89,6 +89,10 @@
 
             </tbody>
         </table>
+        <div class="pagination justify-content-center">
+
+            {{$reports->links()}}
+        </div>
     </div>
 </div>
 <!--/ Hoverable Table rows -->

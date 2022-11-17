@@ -3,8 +3,7 @@
             "url": "/",
             "name": "Dashboard",
             "icon": "menu-icon tf-icons bx bx-home-circle",
-
-            "slug": "dashboard-analytics"
+            "slug": "home"
         },
 
         {
@@ -14,15 +13,14 @@
             "name": "New Reports",
             "icon": "menu-icon tf-icons bx bx bx-dock-top",
             "slug": "report.new.view",
-
-            "url": "reports/new"
+            "url": "reports/new",
+            "notifiable": "App\\Http\\Modules\\Reports\\Notifications\\ReportCreatedNotification"
 
         },
         {
             "name": "Current Reports",
             "icon": "menu-icon tf-icons bx bx bx-dock-top",
             "slug": "report.current.view",
-
             "url": "reports/current"
 
         },

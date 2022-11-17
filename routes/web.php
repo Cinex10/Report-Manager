@@ -24,7 +24,7 @@ $controller_path = 'App\Http\Controllers';
 // Main Page Route
 // Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 
-Route::view('/', 'dashboard')->middleware('auth')->name('home');
+Route::get('/', [AuthenticationController::class, 'viewDashboard'])->middleware('auth')->name('home');
 
 
 Route::get('test', function () {
@@ -43,25 +43,23 @@ Route::get('test', function () {
 });
 
 Route::group(['prefix' => 'reports', 'middleware' => ['auth']], function () {
-    Route::view('new', 'reports.new_reports')->name('report.new.view');
-    Route::view('current', 'reports.current_reports')->name('report.current.view');
-    Route::view('solved', 'reports.solved_reports')->name('report.solved.view');
-    Route::view('me', 'reports.my_reports')->name('myreport.current.view');
+    Route::get('new', [ReportController::class, 'viewNewReport'])->name('report.new.view');
+    Route::get('current', [ReportController::class, 'viewCurrentReport'])->name('report.current.view');
+    Route::get('solved', [ReportController::class, 'viewSolvedReport'])->name('report.solved.view');
+    Route::get('me', [ReportController::class, 'viewMyReport'])->name('myreport.view');
 
 
-    Route::view('current/service', 'reports.service_current_reports')->name('service.report.current.view');
-    Route::view('solved/service', 'reports.service_solved_reports')->name('service.report.solved.view');
-    Route::view('create', 'reports.create_report')->name('report.create.view');
+    Route::get('current/service', [ReportController::class, 'viewServiceCurrentReport'])->name('service.report.current.view');
+    Route::get('solved/service', [ReportController::class, 'viewServiceSolvedReport'])->name('service.report.solved.view');
+    Route::get('create', [ReportController::class, 'viewCreateReport'])->name('report.create.view');
     Route::post('create', [ReportController::class, 'create'])->name('report.create');
     Route::post('validate', [ReportController::class, 'makeValide'])->name('report.validate');
     Route::post('reject', [ReportController::class, 'reject'])->name('report.reject');
-    Route::get('/{id}', function ($id) {
-        return view('reports.report_detail', ['report' => Declaration::find($id), 'solution' => Solution::where('idDeclaration', $id)->first()]);
-    });
+    Route::get('/{id}', [ReportController::class, 'viewReportDetail']);
 });
 Route::group(['prefix' => 'users'], function () {
-    Route::view('/simple', 'users.simple_users')->name('users.simple.view');
-    Route::view('/technical', 'users.technical_users')->name('users.technical.view');
+    Route::get('/simple', [ReportController::class, 'viewSimpleUsers'])->name('users.simple.view');
+    Route::get('/technical', [ReportController::class, 'viewTechnicalUsers'])->name('users.technical.view');
 });
 
 Route::group(['prefix' => 'solution', 'middleware' => ['auth']], function () {
@@ -73,13 +71,12 @@ Route::group(['prefix' => 'solution', 'middleware' => ['auth']], function () {
 
 Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');
 Route::group(['prefix' => 'auth'], function () {
-    Route::view('/login', 'authentications.auth-login-basic')->name('login.view');
+    Route::get('/login', [AuthenticationController::class, 'viewLogin'])->name('login.view');
     Route::post('login', [AuthenticationController::class, 'login'])->name('login');
-    Route::view('/technical', 'admin.users.technical_users');
 });
 
 Route::group(['prefix' => 'account'], function () {
-    Route::view('/settings', 'account.account-settings')->middleware('auth')->name('account.settings.view');
+    Route::get('/settings', [AccountController::class, 'viewSettings'])->middleware('auth')->name('account.settings.view');
     Route::post('/settings', [AccountController::class, 'editAccountInfo'])->name('account.edit');
 });
 

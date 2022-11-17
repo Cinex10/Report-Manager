@@ -1,10 +1,11 @@
-@extends('layouts/contentNavbarLayout') @section('title', 'Basic Inputs - Forms') @section('page-script')
+@extends('layouts/contentNavbarLayout') @section('title', $title) @section('page-script')
 <script src="{{asset('assets/js/form-basic-inputs.js')}}"></script>
-@inject('categories', 'App\Models\Categorie') @endsection @section('content')
+
+@endsection @section('content')
 <script src="{{ asset(mix('assets/vendor/libs/jquery/jquery.js')) }}"></script>
 
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Reports /</span> Create new report
+    <span class="text-muted fw-light">Reports /</span> {{$title}}
 </h4>
 
 @if(session()->has('message'))
@@ -40,7 +41,7 @@
                     <select class="form-select" id="exampleFormControlSelect1" name="idCategorie" aria-label="Default select example">
 
 
-                        @foreach($categories::all() as $category)
+                        @foreach($categories as $category)
 
                         <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
@@ -106,17 +107,17 @@
                     </script>
                 </div>
                 <!-- Video -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="formFileMultiple" class="form-label">Upload Videos</label>
                     <div class="mb-3">
 
                         <input class="form-control" type="file" accept="video/*" id="video-add" name="videos[]" multiple>
                     </div>
-                    <!-- <img src="" id="category-img-tag" width="200px" /> -->
+                    
                     <div class="gallery-video" style="display: inline-block; "></div>
 
 
-                    <!--for preview purpose -->
+                    
 
 
                     <script type="text/javascript">
@@ -155,11 +156,14 @@
                             });
                         });
                     </script>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary col-md-2">Create</button>
+    <div class="d-flex flex-row justify-content-center">
+
+        <button type="submit" class="btn btn-primary col-md-2">Create</button>
+    </div>
 
 
 

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Modules\Reports\Events\ReportCreatedEvent;
+use App\Http\Modules\Reports\Events\ReportValidatedEvent;
+use App\Models\Categorie;
 use App\Models\Declaration;
 use App\Models\Picture_dec;
+use App\Models\Solution;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -52,6 +57,12 @@ class ReportController extends Controller
                 }
             }
         }
+        // $notif = [
+        //     'id' => $data->id,
+        //     'title' => $data->Titre,
+        // ];
+
+        event(new ReportCreatedEvent($data));
         return redirect()->back()->with('message', 'Report added successfully');
     }
 
@@ -74,6 +85,8 @@ class ReportController extends Controller
             }
         }
         $report->save();
+
+        event(new ReportValidatedEvent($report));
         return redirect()->back()->with('success', $message);
     }
 
@@ -88,5 +101,60 @@ class ReportController extends Controller
         $report->state = 'rejected';
         $report->save();
         return redirect()->back()->with('success', $message);
+    }
+
+    public function viewCreateReport()
+    {
+        return view('reports.create_report', ['title' => 'Create New Report', 'categories' => Categorie::all()]);
+    }
+    public function viewMyReport()
+    {
+
+        auth()->user()->unreadNotifications->markAsRead();
+        return view('reports.my_reports', ['title' => 'My Reports', 'reports' => Declaration::where('idUser', auth()->user()->id)->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewCurrentReport()
+    {
+
+        auth()->user()->unreadNotifications->where('type', 'App\Http\Modules\Reports\Notifications\ReportValidatedNotification')->markAsRead();
+        return view('reports.current_reports', ['title' => 'Current Reports', 'reports' => Declaration::where('state', '!=', 'solved')->where('state', '=', 'valid')->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewSolvedReport()
+    {
+        // auth()->user()->unreadNotifications->where('type', 'App\Http\Modules\Reports\Notifications\ReportSolvedNotification')->markAsRead();
+        return view('reports.solved_reports', ['title' => 'Solved Reports', 'reports' => Declaration::where('state', '=', 'solved')->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewNewReport()
+    {
+
+        auth()->user()->unreadNotifications->where('type', 'App\Http\Modules\Reports\Notifications\ReportCreatedNotification')->markAsRead();
+        return view('reports.new_reports', ['title' => 'New Reports', 'reports' => Declaration::where('state', '=', 'new')->orderBy('id', 'DESC')->paginate(11), 'notifications' => auth()->user()->unreadNotifications]);
+    }
+    public function viewServiceCurrentReport()
+    {
+        auth()->user()->unreadNotifications->where('type', 'App\Http\Modules\Reports\Notifications\ReportValidatedNotification')->markAsRead();
+        return view('reports.service_current_reports', ['title' => 'Current Reports', 'reports' => Declaration::with('categorie.service')->whereHas('categorie.service', function ($q) {
+            $q->where('idChefService', auth()->user()->id);
+        })->where('state', '!=', 'rejected')->where('state', '!=', 'solved')->where('state', '!=', 'new')->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewServiceSolvedReport()
+    {
+        return view('reports.service_solved_reports', ['title' => 'Solved Reports', 'reports' => Declaration::with('categorie.service')->whereHas('categorie.service', function ($q) {
+            $q->where('idChefService', auth()->user()->id);
+        })->where('state', '=', 'solved')->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewSimpleUsers()
+    {
+        return view('users.simple_users', ['title' => 'Simple Users', 'users' => User::role('user')->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewTechnicalUsers()
+    {
+        return view('users.technical_users', ['title' => 'Technical Users', 'users' => User::whereHas("roles", function ($q) {
+            $q->where("name", '!=', "user");
+        })->orderBy('id', 'DESC')->paginate(11)]);
+    }
+    public function viewReportDetail($id)
+    {
+        return view('reports.report_detail', ['title' => 'Details', 'report' => Declaration::find($id), 'solution' => Solution::where('idDeclaration', $id)->first(), 'categories' => Categorie::all()]);
     }
 }

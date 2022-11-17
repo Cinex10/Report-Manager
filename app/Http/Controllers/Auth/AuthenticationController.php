@@ -43,4 +43,13 @@ class AuthenticationController extends Controller
         Auth::logout();
         return redirect(route('login.view'));
     }
+
+    public function viewLogin()
+    {
+        return view('authentications.auth-login-basic', ['title' => 'Login']);
+    }
+    public function viewDashboard()
+    {
+        return view('dashboard', ['title' => 'Home']);
+    }
 }

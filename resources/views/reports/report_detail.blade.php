@@ -1,10 +1,10 @@
-@extends('layouts/contentNavbarLayout') @section('title', 'Basic Inputs - Forms') @section('page-script')
+@extends('layouts/contentNavbarLayout') @section('title', $title) @section('page-script')
 <script src="{{ asset('assets/js/form-basic-inputs.js') }}"></script>
-@endsection @section('content') @inject('categories', 'App\Models\Categorie')
+@endsection @section('content')
 <script src="{{ asset(mix('assets/vendor/libs/jquery/jquery.js')) }}"></script>
 
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Reports /</span> Details
+    <span class="text-muted fw-light">Reports /</span> {{$title}}
 </h4>
 
 @if(session()->has('success'))
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col">
                                         <label for="exampleFormControlInput1" class="form-label">Date</label>
-                                        <h6>{{$report->created_at}}</h6>
+                                        <h6>{{time_elapsed_string($report->created_at)}}</h6>
                                     </div>
                                     <div class="col">
                                         <label for="exampleFormControlInput1" class="form-label">Category</label>
@@ -87,7 +87,7 @@
                                   " id="exampleFormControlSelect1" name="idCategorie" aria-label="Default select example">
 
 
-                                            @foreach($categories::all() as $category)
+                                            @foreach($categories as $category)
 
                                             <option @if (($report->categorie()->pluck('name')[0]) == $category->name )
                                                 selected

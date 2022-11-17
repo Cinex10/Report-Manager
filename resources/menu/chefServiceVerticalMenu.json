@@ -4,7 +4,7 @@
             "name": "Dashboard",
             "icon": "menu-icon tf-icons bx bx-home-circle",
 
-            "slug": "dashboard-analytics"
+            "slug": "home"
         },
         {
             "menuHeader": "Reports"
@@ -14,9 +14,8 @@
             "name": "Current Reports",
             "icon": "menu-icon tf-icons bx bx bx-dock-top",
             "slug": "service.report.current.view",
-
-            "url": "reports/current/service"
-
+            "url": "reports/current/service",
+            "notifiable": "App\\Http\\Modules\\Reports\\Notifications\\ReportValidatedNotification"
         },
 
         {

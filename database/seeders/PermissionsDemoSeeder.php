@@ -96,8 +96,8 @@ class PermissionsDemoSeeder extends Seeder
             [
                 'first_name' => 'admin',
                 'last_name' => 'admin',
-                'email' => 'admin@gmail.dz',
-                'adress' => 'Saida, alger',
+                'email' => 'admin@shl.sa',
+                'adress' => 'Riyadh, Saudi Arabia',
                 'tel' => '0523456789',
                 'isActive' => true,
                 'password' => bcrypt('1234'),
@@ -112,8 +112,8 @@ class PermissionsDemoSeeder extends Seeder
             [
                 'first_name' => 'Rayan',
                 'last_name' => 'Mohammed',
-                'email' => 'user1@gmail.dz',
-                'adress' => 'Tlemcen, alger',
+                'email' => 'rayan@shl.sa',
+                'adress' => 'Riyadh, Saudi Arabia',
                 'tel' => '0523456789',
                 'isActive' => true,
                 'password' => bcrypt('1234'),
@@ -125,9 +125,9 @@ class PermissionsDemoSeeder extends Seeder
         $user2 = User::create(
             [
                 'first_name' => 'Abdulah',
-                'last_name' => 'Walid',
-                'email' => 'user2@gmail.dz',
-                'adress' => 'Tlemcen, alger',
+                'last_name' => 'Al-khubairi',
+                'email' => 'abdulah@shl.sa',
+                'adress' => 'Riyadh, Saudi Arabia',
                 'tel' => '0523456789',
                 'isActive' => true,
                 'password' => bcrypt('1234'),
@@ -139,8 +139,8 @@ class PermissionsDemoSeeder extends Seeder
             [
                 'first_name' => 'DRISS',
                 'last_name' => 'Yassine',
-                'email' => 'resp@gmail.dz',
-                'adress' => 'Bechar, alger',
+                'email' => 'resp@shl.sa',
+                'adress' => 'Riyadh, Saudi Arabia',
                 'tel' => '0523456789',
                 'isActive' => true,
                 'password' => bcrypt('1234'),
@@ -152,8 +152,8 @@ class PermissionsDemoSeeder extends Seeder
             [
                 'first_name' => 'Chef',
                 'last_name' => 'one',
-                'email' => 'chef1@gmail.dz',
-                'adress' => 'SBA, alger',
+                'email' => 'chef1@shl.sa',
+                'adress' => 'Riyadh, Saudi Arabia',
                 'tel' => '0523456789',
                 'isActive' => true,
                 'password' => bcrypt('1234'),
@@ -164,8 +164,8 @@ class PermissionsDemoSeeder extends Seeder
             [
                 'first_name' => 'Chef',
                 'last_name' => 'Two',
-                'email' => 'chef2@gmail.dz',
-                'adress' => 'Setif, alger',
+                'email' => 'chef2@shl.sa',
+                'adress' => 'Riyadh, Saudi Arabia',
                 'tel' => '0677538293',
                 'isActive' => true,
                 'password' => bcrypt('1234'),
@@ -183,7 +183,7 @@ class PermissionsDemoSeeder extends Seeder
 
         //Create service 1 and attache chef one
         $service1 = Service::create([
-            'name' => 'Travaux Publique',
+            'name' => 'Electricite service',
             'phone' => '049543881',
             'email' => 'ta@gmail.com',
             'description' => 'le service chagée de travaux publique',
@@ -192,9 +192,9 @@ class PermissionsDemoSeeder extends Seeder
 
         //Create service 2 and attache chef two
         $service2 = Service::create([
-            'name' => 'Electricite',
+            'name' => 'Water service',
             'phone' => '049609183',
-            'email' => 'elec@gmail.com',
+            'email' => 'elec@shl.sa',
             'description' => "le service chagée des problemes d'electricite",
             'idChefService' => $chef_service2->id,
         ]);
@@ -205,8 +205,8 @@ class PermissionsDemoSeeder extends Seeder
         //Create categorie 1 and attache service 1       
         $cat1 =  Categorie::create(
             [
-                'idService' => $service1->id,
-                'name' => 'Urbanism',
+                'idService' => $service2->id,
+                'name' => 'Cleanliness',
                 'description' => 'description de categorie urbanism',
 
 
@@ -217,22 +217,29 @@ class PermissionsDemoSeeder extends Seeder
         //Create categorie 2 and attache service 2
         $cat2 = Categorie::create([
             'idService' => $service2->id,
-            'name' => 'Eclairage',
+            'name' => 'Water problem',
+            'description' => 'description de categorie eclairage',
+        ]);
+        $cat3 = Categorie::create([
+            'idService' => $service1->id,
+            'name' => 'Electric problem',
             'description' => 'description de categorie eclairage',
         ]);
 
         //----------------------------------- DECLARATIONS ---------------------------------------------------//        
 
         //Create declaration (1) (new)
-        // $dec1 = Declaration::create([
-        //     'idUser' => $user1->id,
-        //     'titre' => 'Probleme A1',
-        //     'description' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem veritatis, doloremque aspernatur, est eligendi iste, nulla distinctio nihil ducimus commodi nisi? Autem incidunt vitae non, assumenda soluta aut impedit atque.',
-        //     'lieu' => 'Tlemcen',
-        //     'idCategorie' => 1,
-        //     'idDeclarationParent' => null,
-        // ]);
+        foreach (range(0, 5) as $i) {
 
+            $dec1 = Declaration::create([
+                'idUser' => $user1->id,
+                'titre' => 'Probleme ' . $i,
+                'description' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem veritatis, doloremque aspernatur, est eligendi iste, nulla distinctio nihil ducimus commodi nisi? Autem incidunt vitae non, assumenda soluta aut impedit atque.',
+                'lieu' => 'Tlemcen',
+                'idCategorie' => 1,
+                'idDeclarationParent' => null,
+            ]);
+        }
 
         // //Create declaration (2) (new)
         // $dec2 = Declaration::create([

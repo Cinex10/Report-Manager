@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\SendNewReportNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,7 +18,16 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            SendNewReportNotification::class,
         ],
+
+        \App\Http\Modules\Reports\Events\ReportCreatedEvent::class => [
+            \App\Http\Modules\Reports\Listeners\ReportCreatedListener::class,
+        ],
+        \App\Http\Modules\Reports\Events\ReportValidatedEvent::class => [
+            \App\Http\Modules\Reports\Listeners\ReportValidatedListener::class,
+        ],
+
     ];
 
     /**

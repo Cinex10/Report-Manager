@@ -82,11 +82,22 @@
 
     {{-- main menu --}}
     <li class="menu-item {{$activeClass}}">
-      <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
+      <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }} d-flex align-items-center" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
         @isset($menu->icon)
         <i class="{{ $menu->icon }}"></i>
         @endisset
-        <div>{{ isset($menu->name) ? __($menu->name) : '' }}</div>
+        <div class="">{{ isset($menu->name) ? __($menu->name)  : '' }}</div>
+        <div style="position: absolute;
+    right: 5%;">
+          @if(isset($menu->notifiable))
+
+          <span class="badge bg-danger rounded-pill {{(count(auth()->user()->unreadNotifications->where('type', __($menu->notifiable)))>0) ? '' :'invisible'}}">{{(count(auth()->user()->unreadNotifications))}}</span>
+
+          @endif
+
+
+        </div>
+
       </a>
 
       {{-- submenu --}}
